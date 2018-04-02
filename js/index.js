@@ -28,6 +28,18 @@ xhr = (ep) => {
 }
 
 getPlaceEvents = (opts) => {
+  if (opts == null) {
+    let startDate = moment().startOf('day').utc().format()
+    let endDate = moment(startDate).add('1', 'months').utc().format()
+    opts =
+      'start=' + startDate +
+      '&end=' + endDate
+
+    document.getElementById('titlebar').innerHTML =
+      months[new Date(moment(startDate)).getMonth()] + ' ' +
+      new Date(moment(startDate)).getFullYear()
+  }
+
   xhr('https://apiumum.herokuapp.com/places')
     .then((places) => {
       let placesArr = []
@@ -111,9 +123,11 @@ getPlaceEventsFromToday = () => {
   let opts = 'start=' + startDate
 
   document.getElementById('titlebar').innerHTML =
-    months[today.getMonth()] + ' ' + today.getFullYear()
+    months[today.getMonth()] + ' ' +
+    today.getFullYear()
   getPlaceEvents(opts)
 }
 
 // initial load
-getPlaceEventsFromToday()
+// getPlaceEventsFromToday()
+getPlaceEvents()

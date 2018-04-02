@@ -39,20 +39,24 @@ body {
   border: none;
   padding: 10px 15px;
   box-shadow: 2px 2px 2px #4b4b4b77;
-  background-color: #f58bc0;
   margin-left: 10px;
   border-radius: 3px;
+  background: #06beb6;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #48b1bf, #06beb6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #48b1bf, #06beb6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .titlebar {
   padding: 20px;
   color: #ffffff;
-  background-color: #f58bc0;
   box-shadow: 0 2px 2px #4b4b4b77;
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: .2em;
   z-index: 9;
+  background: #06beb6;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #48b1bf, #06beb6);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #48b1bf, #06beb6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .card {
