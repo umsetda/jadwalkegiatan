@@ -1,0 +1,112 @@
+@font-face {
+  font-family: Lato;
+  src: url('../fonts/Lato-Regular.ttf')
+}
+
+body {
+  font-family: Lato, Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: #fafafa;
+}
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.buttons {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 20px;
+}
+
+.home#home,
+.calendar#calendar
+{
+  border: none;
+  padding: 10px 15px;
+  box-shadow: 2px 2px 2px #4b4b4b77;
+  background-color: #f58bc0;
+  margin-left: 10px;
+  border-radius: 3px;
+}
+
+.titlebar {
+  padding: 20px;
+  color: #ffffff;
+  background-color: #f58bc0;
+  box-shadow: 0 2px 2px #4b4b4b77;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: .2em;
+}
+
+.card {
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  border-radius: 3px;
+  box-shadow: 0 2px 2px #4b4b4b77;
+  background-color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.card .dateTime {
+  width: 4rem;
+  text-align: center;
+}
+
+.card .dateTime .date {
+  font-size: 1.6rem;
+}
+
+.card .dateTime .day {
+  font-size: .875rem;
+}
+
+.card .dateTime .time {
+  margin-top: 10px;
+  font-size: .875rem;
+}
+
+.card .content {
+  font-size: .8rem;
+  padding: 0;
+  margin-left: 10px;
+  overflow: hidden;
+}
+
+.card .content .name {
+  margin-bottom: 10px;
+  font-size: 1rem;
+}
+
+.card .content .icon {
+  display: inline-block;
+  width: 1rem;
+  text-align: center;
+}
+
+.card .content .place {
+  margin-bottom: 5px;
+}
+
+.card .content .place i,
+.card .content .user i
+{
+  margin-right: 10px;
+}
