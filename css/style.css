@@ -52,10 +52,11 @@ body {
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: .2em;
+  z-index: 9;
 }
 
 .card {
-  padding: 10px;
+  padding: 20px 10px;
   display: flex;
   flex-direction: row;
   align-content: center;

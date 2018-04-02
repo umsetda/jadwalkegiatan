@@ -39,7 +39,6 @@ getPlaceEvents = (opts) => {
 
       xhr('https://apiumum.herokuapp.com/places/events?' + opts)
         .then((placeEvents) => {
-          console.log(placeEvents)
           for (i in placeEvents) {
             let card = document.createElement('div')
             card.classList.add('card')
@@ -88,7 +87,8 @@ getPlaceEvents = (opts) => {
             user.classList.add('user')
             user.innerHTML =
               '<i class="icon ion-android-people"></i>' +
-              placeEvents[i].pic
+              placeEvents[i].pic +
+              ' (' + (placeEvents[i].amount || '-') + ')'
             content.appendChild(user)
           }
         })
