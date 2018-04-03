@@ -14,7 +14,14 @@
 
 <body>
   <div class="main" id="main">
-    <div class="titlebar" id="titlebar"></div>
+    <div class="titlebar" id="titlebar">
+      <select id="selectYear"></select>
+      <select id="selectMonth"></select>
+      
+      <button id="searchButton" onclick="searchButtonClick()">
+        <i class="icon ion-search"></i>
+      </button>
+    </div>
     <div class="content" id="content">
 
       <!-- <div class="card">
@@ -45,15 +52,9 @@
    </div>
   </div>
 
-  <!-- <div class="buttons">
-    <button class="home" id="home">
-      <i class="icon ion-home"></i>
-    </button>
-    <button class="calendar" id="calendar">
-      <i class="icon ion-calendar"></i>
-    </button>
-  </div> -->
-
+  <div class="loader-container hide" id="loader">
+    <div class="loader"></div>
+  </div>
   <script src="./js/moment.js"></script>
   <script src="./js/index.js"></script>
 </body>
