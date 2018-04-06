@@ -96,7 +96,7 @@ getPlaceEvents = (year, month) => {
               date.classList.add('date')
               let dateForCompare = moment(new Date(placeEvents[i].dateTime)).startOf('day').utc().format()
               if(todayForCompare == dateForCompare) {
-                card.style.backgroundColor = '#f7ffff'
+                card.style.backgroundColor = '#e0fcfc'
               }
               date.innerHTML =
                 new Date(placeEvents[i].dateTime).getDate()
