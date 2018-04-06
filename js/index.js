@@ -54,6 +54,9 @@ getPlaceEvents = (year, month) => {
   let dateTime = new Date(year, month)
   let startDate = moment(dateTime).startOf('month').utc().format()
   let endDate = moment(startDate).add('1', 'months').utc().format()
+  
+  let todayForCompare = moment(new Date()).startOf('day').utc().format()
+  
   opts =
     'start=' + startDate +
     '&end=' + endDate
@@ -91,6 +94,10 @@ getPlaceEvents = (year, month) => {
 
               let date = document.createElement('div')
               date.classList.add('date')
+              let dateForCompare = moment(new Date(placeEvents[i].dateTime)).startOf('day').utc().format()
+              if(todayForCompare == dateForCompare) {
+                card.style.backgroundColor = '#f7ffff'
+              }
               date.innerHTML =
                 new Date(placeEvents[i].dateTime).getDate()
               dateTime.appendChild(date)
