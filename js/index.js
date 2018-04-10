@@ -54,9 +54,11 @@ getPlaceEvents = (year, month) => {
   let dateTime = new Date(year, month)
   let startDate = moment(dateTime).startOf('month').utc().format()
   let endDate = moment(startDate).add('1', 'months').utc().format()
-  
+
+  let events
+
   let todayForCompare = moment(new Date()).startOf('day').utc().format()
-  
+
   opts =
     'start=' + startDate +
     '&end=' + endDate
@@ -72,75 +74,111 @@ getPlaceEvents = (year, month) => {
 
       xhr('https://apiumum.herokuapp.com/places/events?' + opts)
         .then((placeEvents) => {
-          let content = document.getElementById('content')
-          while (content.firstChild) {
-            content.removeChild(content.firstChild);
-          }
 
-          if (placeEvents.length == 0) {
-            let content = document.getElementById('content')
-            content.innerHTML =
-              'Tidak ada data...'
-          }
-          else {
-            for (i in placeEvents) {
-              let card = document.createElement('div')
-              card.classList.add('card')
-              document.getElementById('content').appendChild(card)
+          xhr('https://apiumum.herokuapp.com/events?' + opts)
+            .then((genericEvents) => {
+              events = placeEvents.concat(genericEvents)
+              events.sort(function compare(a, b) {
+                var dateA = new Date(a.dateTime)
+                var dateB = new Date(b.dateTime)
+                return dateA - dateB
+              })
+              console.log(events)
 
-              let dateTime = document.createElement('div')
-              dateTime.classList.add('dateTime')
-              card.appendChild(dateTime)
 
-              let date = document.createElement('div')
-              date.classList.add('date')
-              let dateForCompare = moment(new Date(placeEvents[i].dateTime)).startOf('day').utc().format()
-              if(todayForCompare == dateForCompare) {
-                card.style.backgroundColor = '#e0fcfc'
+              let content = document.getElementById('content')
+              while (content.firstChild) {
+                content.removeChild(content.firstChild);
               }
-              date.innerHTML =
-                new Date(placeEvents[i].dateTime).getDate()
-              dateTime.appendChild(date)
 
-              let day = document.createElement('div')
-              day.classList.add('day')
-              day.innerHTML =
-                days[new Date(placeEvents[i].dateTime).getDay()]
-              dateTime.appendChild(day)
+              if (events.length == 0) {
+                let content = document.getElementById('content')
+                content.innerHTML =
+                  'Tidak ada data...'
+              }
+              else {
+                for (i in placeEvents) {
+                  let card = document.createElement('div')
+                  card.classList.add('card')
+                  document.getElementById('content').appendChild(card)
 
-              let time = document.createElement('div')
-              time.classList.add('time')
-              time.innerHTML =
-                ('0' + new Date(placeEvents[i].dateTime).getHours()).slice(-2) + ':' +
-                ('0' + new Date(placeEvents[i].dateTime).getMinutes()).slice(-2)
-              dateTime.appendChild(time)
+                  let dateTime = document.createElement('div')
+                  dateTime.classList.add('dateTime')
+                  card.appendChild(dateTime)
 
-              let content = document.createElement('div')
-              content.classList.add('content')
-              card.appendChild(content)
+                  let date = document.createElement('div')
+                  date.classList.add('date')
+                  let dateForCompare = moment(new Date(events[i].dateTime)).startOf('day').utc().format()
+                  if (todayForCompare == dateForCompare) {
+                    card.style.backgroundColor = '#e0fcfc'
+                  }
+                  date.innerHTML =
+                    new Date(events[i].dateTime).getDate()
+                  dateTime.appendChild(date)
 
-              let name = document.createElement('div')
-              name.classList.add('name')
-              name.innerHTML = placeEvents[i].description
-              content.appendChild(name)
+                  let day = document.createElement('div')
+                  day.classList.add('day')
+                  day.innerHTML =
+                    days[new Date(events[i].dateTime).getDay()]
+                  dateTime.appendChild(day)
 
-              let place = document.createElement('div')
-              place.classList.add('place')
-              place.innerHTML =
-                '<i class="icon ion-android-pin"></i>' +
-                placesArr[placeEvents[i].place]
-              content.appendChild(place)
+                  let time = document.createElement('div')
+                  time.classList.add('time')
+                  time.innerHTML =
+                    ('0' + new Date(events[i].dateTime).getHours()).slice(-2) + ':' +
+                    ('0' + new Date(events[i].dateTime).getMinutes()).slice(-2)
+                  dateTime.appendChild(time)
 
-              let user = document.createElement('div')
-              user.classList.add('user')
-              user.innerHTML =
-                '<i class="icon ion-android-people"></i>' +
-                placeEvents[i].pic +
-                ' (' + (placeEvents[i].amount || '-') + ')'
-              content.appendChild(user)
-            }
-          }
-          document.getElementById('loader').classList.add('hide')
+                  let content = document.createElement('div')
+                  content.classList.add('content')
+                  card.appendChild(content)
+
+                  let name = document.createElement('div')
+                  name.classList.add('name')
+                  name.innerHTML = events[i].description
+                  content.appendChild(name)
+
+                  let place = document.createElement('div')
+                  place.classList.add('detail')
+                  if (placesArr[events[i].place] == null) {
+                    place.innerHTML =
+                      '<i class="icon ion-android-pin"></i>' +
+                      events[i].place
+                  }
+                  else {
+                    place.innerHTML =
+                      '<i class="icon ion-android-pin"></i>' +
+                      placesArr[events[i].place]
+                  }
+                  content.appendChild(place)
+
+                  if (events[i].pic) {
+                    let user = document.createElement('div')
+                    user.classList.add('detail')
+                    user.innerHTML =
+                      '<i class="icon ion-android-people"></i>' +
+                      events[i].pic +
+                      ' (' + (events[i].amount || '-') + ')'
+                    content.appendChild(user)
+                  }
+
+                  if (events[i].notes) {
+                    let notes = document.createElement('div')
+                    notes.classList.add('detail')
+                    notes.innerHTML =
+                      '<i class="icon ion-clipboard"></i>' +
+                      events[i].notes
+                    content.appendChild(notes)
+                  }
+                }
+              }
+              document.getElementById('loader').classList.add('hide')
+            })
+            .catch((err) => {
+              console.log(err)
+              document.getElementById('loader').classList.add('hide')
+            })
+          // console.log(placeEvents)
         })
         .catch((err) => {
           console.log(err)

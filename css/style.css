@@ -106,12 +106,12 @@ body {
   text-align: center;
 }
 
-.card .content .place {
+.card .content .detail
+{
   margin-bottom: 5px;
 }
 
-.card .content .place i,
-.card .content .user i
+.card .content .detail i
 {
   margin-right: 10px;
 }
