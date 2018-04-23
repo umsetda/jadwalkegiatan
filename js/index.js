@@ -53,9 +53,12 @@ getPlaceEvents = (year, month) => {
 
   let dateTime = new Date(year, month)
   let startDate = moment(dateTime).startOf('month').utc().format()
-  let endDate = moment(startDate).add('1', 'months').utc().format()
+  let endDate = moment(startDate).add('1', 'months').startOf('month').utc().format()
 
   let events
+
+  console.log(startDate)
+  console.log(endDate)
 
   let todayForCompare = moment(new Date()).startOf('day').utc().format()
 
@@ -83,8 +86,6 @@ getPlaceEvents = (year, month) => {
                 var dateB = new Date(b.dateTime)
                 return dateA - dateB
               })
-              console.log(events)
-
 
               let content = document.getElementById('content')
               while (content.firstChild) {
@@ -97,7 +98,7 @@ getPlaceEvents = (year, month) => {
                   'Tidak ada data...'
               }
               else {
-                for (i in placeEvents) {
+                for (i in events) {
                   let card = document.createElement('div')
                   card.classList.add('card')
                   document.getElementById('content').appendChild(card)
