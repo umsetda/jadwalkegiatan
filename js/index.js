@@ -16,7 +16,7 @@ for (i in months) {
   document.getElementById('selectMonth').appendChild(option)
 }
 
-for (let i = thisYear; i >= thisYear - 10; i--) {
+for (let i = thisYear + 5; i >= thisYear - 5; i--) {
   let option = document.createElement('option')
   option.value = i
   option.innerHTML = i
