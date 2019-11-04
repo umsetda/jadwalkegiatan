@@ -1,2 +1,2 @@
-# jadwalsetda-next
-jadwalsetda next release version
+# jadwalsetda
+jadwalsetda release version
